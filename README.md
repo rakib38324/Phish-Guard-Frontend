@@ -1,33 +1,59 @@
-# PhishGuard — AI Phishing Detection System
+# 🛡️ PhishGuard — AI Phishing Detection System
 
-AI-powered phishing URL detector using XGBoost + SHAP explanations.
+PhishGuard is an AI-powered phishing URL detection system using **XGBoost + SHAP explanations**.  
+It analyzes URLs using **32+ security features** including URL structure, domain signals, and SSL certificate data.
 
-## Stack
+---
+
+## 🚀 Live Architecture
+
+### 🟢 Frontend UI
+👉 https://rakib38324.github.io/Phish-Guard-Frontend/
+
+- Static HTML 
+- Fetches predictions from backend API
+- Displays risk score + explanations
+
+---
+
+## 🧠 Tech Stack
 - **Backend**: Python / Flask / XGBoost / SHAP
 - **Frontend**: Vanilla HTML/CSS/JS (drop-in, no build step)
 - **Features**: 32 URL + SSL signals extracted per URL
+---
 
-## Setup
+## ⚙️ Backend Setup (Phish-Guard-Server)
 
-### 1. Install dependencies
+### 1. Clone the repository
 ```bash
-pip install -r backend/requirements.txt
+https://github.com/rakib38324/Phish-Guard-Server.git
+cd Phish-Guard-Server
+```
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
 ```
 
-### 2. Train the model (run once)
+### 3. Train the model (run once)
 ```bash
-python backend/train_model.py
+python train_model.py
 ```
 This generates `models/xgb_model.pkl`, `models/shap_explainer.pkl`, `models/feature_names.pkl`.
 
-### 3. Start the API server
+### 4. Start the API server
 ```bash
-python backend/app.py
+python app.py
 ```
-API runs on `http://localhost:5001`
+API runs on `http://127.0.0.1:5001`, and in the frontend, you need to change the API live to `http://127.0.0.1:5001`.
 
-### 4. Open the frontend
-Open `frontend/index.html` in any browser (or serve with `python -m http.server`).
+### 5. Open the frontend
+clone frontend repository
+```bash
+https://github.com/rakib38324/Phish-Guard-Frontend.git
+cd Phish-Guard-Frontend
+```
+Open `index.html` in any browser (or serve with `python -m http.server`).
+
 
 ## API
 
@@ -62,22 +88,20 @@ Returns `{ "status": "ok", "model": "xgboost" }`
 
 ## Project Structure
 ```
-phishing-detector/
-├── backend/
+
+Phish-Guard-Server/
 │   ├── app.py              # Flask API
 │   ├── feature_extractor.py # URL feature extraction
 │   ├── train_model.py       # Model training
-│   └── requirements.txt
-├── models/                  # Generated after training
-│   ├── xgb_model.pkl
-│   ├── shap_explainer.pkl
-│   └── feature_names.pkl
-├── frontend/
-│   └── index.html           # UI (no build step needed)
+│   ├── requirements.txt
+│   ├── models/                  # Generated after training
+│         ├── xgb_model.pkl
+│         ├── shap_explainer.pkl
+│         └── feature_names.pkl
 └── README.md
 ```
-
-## Extending with Real Data
-Replace `generate_synthetic_data()` in `train_model.py` with a real dataset.
-Recommended: [PhiUSIIL Phishing URL Dataset](https://archive.ics.uci.edu/dataset/967/phiusiil+phishing+url+dataset)
-or [ISCX-URL-2016](https://www.unb.ca/cic/datasets/url-2016.html)
+```
+Phish-Guard-Frontend/
+├──  index.html           # UI (no build step needed)
+└── README.md
+```
